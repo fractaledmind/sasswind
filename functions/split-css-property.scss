@@ -1,0 +1,15 @@
+@import '../utilities/str-split';
+@import '../utilities/to-string';
+@import '../utilities/slice';
+
+@function split-css-property($css-property) {
+  $sections: str-split($css-property, '-');
+
+  @if length($sections) == 1 {
+    @return (nth($sections, 1), '');
+  } @else if length($sections) == 2 {
+    @return (nth($sections, 1), nth($sections, 2));
+  } @else {
+    @return (nth($sections, 1), to-string(slice($sections, 2), '-'));
+  }
+}

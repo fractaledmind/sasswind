@@ -1,0 +1,79 @@
+@import './config';
+@import './utilities/starts-with';
+@import './functions/has-variant';
+@import './mixins/css-rule';
+@import './mixins/hover-variant';
+@import './mixins/focus-variant';
+@import './mixins/group-hover-variant';
+@import './mixins/corner-variants';
+@import './mixins/side-variants';
+
+@import './extensions/clearfix';
+@import './extensions/container';
+@import './extensions/lists';
+@import './extensions/pin';
+@import './extensions/scrolling';
+@import './extensions/truncate';
+
+@if index(map-get($config, '_mixins'), 'clearfix') {
+  @include clearfix;
+}
+@if index(map-get($config, '_mixins'), 'container') {
+  @include container;
+}
+@if index(map-get($config, '_mixins'), 'lists') {
+  @include lists;
+}
+@if index(map-get($config, '_mixins'), 'pin') {
+  @include pin;
+}
+@if index(map-get($config, '_mixins'), 'scrolling') {
+  @include scrolling;
+}
+@if index(map-get($config, '_mixins'), 'truncate') {
+  @include truncate;
+}
+
+@each $property, $map in $config {
+  @if starts-with($property, '_') {}
+  @else if $property {
+    $namespace: map-get($map, 'class-namespace');
+    $options: map-get($map, 'class-options');
+    $is-responsive: has-variant($map, 'state-variants', 'responsive');
+
+    @each $alias, $value in $options {
+      $rule: (
+        declaration: (
+          property: $property,
+          value: $value,
+        ),
+        class: (
+          namespace: $namespace,
+          alias: $alias,
+        ),
+      );
+
+      @include css-rule($rule, $is-responsive);
+
+      @if has-variant($map, 'state-variants', 'hover') {
+        @include hover-variant($rule, $is-responsive);
+      }
+
+      @if has-variant($map, 'state-variants', 'focus') {
+        @include focus-variant($rule, $is-responsive);
+      }
+
+      @if has-variant($map, 'state-variants', 'group-hover') {
+        @include group-hover-variant($rule, $is-responsive);
+      }
+
+      @if has-variant($map, 'property-variants', 'corners') {
+        @include corner-variants($rule, $is-responsive);
+      }
+
+      @if has-variant($map, 'property-variants', 'sides') {
+        @include side-variants($rule, $is-responsive);
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import '../functions/generate-classname';
+@import '../functions/generate-property';
+@import './responsive-variant';
+
+@mixin side-variants($rule-map, $is-responsive: true) {
+  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
+  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
+  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
+  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+
+  @each $sideAlias, $sideValues in $sides {
+    $class-name: generate-classname($alias, $namespace, $sideAlias);
+
+    .#{$class-name} {
+      @each $sideValue in $sideValues {
+        $property-name: generate-property($property, $sideValue);
+
+        #{$property-name}: #{$value}
+      }
+    }
+
+    @if $is-responsive {
+      @include responsive-variant($class-name) {
+        @each $sideValue in $sideValues {
+          $property-name: generate-property($property, $sideValue);
+
+          #{$property-name}: #{$value}
+        }
+      }
+    }
+  }
+}

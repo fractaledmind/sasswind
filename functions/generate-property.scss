@@ -1,0 +1,16 @@
+@import './split-css-property';
+@import '../utilities/to-string';
+
+@function generate-property($property, $variant: null) {
+  @if not $variant { @return $property; }
+
+  $property-sections: split-css-property($property);
+  $property-pre: nth($property-sections, 1);
+  $property-post: nth($property-sections, 2);
+
+  @if $property-post != '' {
+    @return to-string(($property-pre, $variant, $property-post), '-');
+  }
+
+  @return to-string(($property-pre, $variant), '-');
+}

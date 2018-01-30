@@ -1,0 +1,32 @@
+@import '../functions/generate-classname';
+@import '../functions/generate-property';
+@import './responsive-variant';
+
+@mixin corner-variants($rule-map, $is-responsive: true) {
+  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
+  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
+  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
+  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+
+  @each $cornerAlias, $cornerValues in $corners {
+    $class-name: generate-classname($alias, $namespace, $cornerAlias);
+
+    .#{$class-name} {
+      @each $cornerValue in $cornerValues {
+        $property-name: generate-property($property, $cornerValue);
+
+        #{$property-name}: #{$value}
+      }
+    }
+
+    @if $is-responsive {
+      @include responsive-variant($class-name) {
+        @each $cornerValue in $cornerValues {
+          $property-name: generate-property($property, $cornerValue);
+
+          #{$property-name}: #{$value}
+        }
+      }
+    }
+  }
+}

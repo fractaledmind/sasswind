@@ -1,0 +1,7 @@
+@function starts-with($string, $find) {
+  @if (str-slice($string, 0, str-length($find)) == $find) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}

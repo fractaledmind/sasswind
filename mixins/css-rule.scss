@@ -1,0 +1,21 @@
+@import '../functions/generate-classname';
+@import './responsive-variant';
+
+@mixin css-rule($rule-map, $is-responsive: true) {
+  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
+  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
+  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
+  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+
+  $class-name: generate-classname($alias, $namespace);
+
+  .#{$class-name} {
+    #{$property}: #{$value}
+  }
+
+  @if $is-responsive {
+    @include responsive-variant($class-name) {
+      #{$property}: #{$value}
+    }
+  }
+}

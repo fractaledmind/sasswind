@@ -1,0 +1,24 @@
+@import '../functions/generate-classname';
+@import '../utilities/to-string';
+@import '../utilities/escape-css';
+@import './responsive-variant';
+
+@mixin focus-variant($rule-map, $is-responsive: true) {
+  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
+  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
+  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
+  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+
+  $class-name: generate-classname($alias, $namespace);
+  $selector: to-string((escape-css('focus:#{$class-name}'), ':focus'));
+
+  .#{$selector} {
+    #{$property}: #{$value}
+  }
+
+  @if $is-responsive {
+    @include responsive-variant($selector) {
+      #{$property}: #{$value}
+    }
+  }
+}

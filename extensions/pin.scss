@@ -1,0 +1,24 @@
+@import '../config';
+
+@mixin pin() {
+  .pin {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+  }
+  .pin-none {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto
+  }
+
+  @each $sideAlias, $sideValues in map-get($config, '_sides') {
+    .pin-#{$sideAlias} {
+      @each $sideValue in $sideValues {
+        #{$sideValue}: 0
+      }
+    }
+  }
+}

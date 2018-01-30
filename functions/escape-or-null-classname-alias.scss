@@ -1,0 +1,8 @@
+@import '../utilities/escape-css';
+
+@function escape-or-null-classname-alias($alias) {
+  @if $alias == null { @return null; }
+  @if $alias == 'default' { @return null; }
+
+  @return escape-css($alias);
+}

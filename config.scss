@@ -1,0 +1,812 @@
+@import './variables';
+
+$config: (
+  _screens: $screens,
+
+  _sides: $sides,
+
+  _corners: $corners,
+
+  _mixins: (
+    'container',
+    'pin',
+    'scrolling',
+    'clearfix',
+    'lists',
+    'truncate',
+  ),
+
+  'appearance': (
+    'class-namespace': 'appearance',
+    'class-options': (
+      'none': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'background-attachment': (
+    'class-namespace': 'bg',
+    'class-options': (
+      'fixed': 'fixed',
+      'local': 'local',
+      'scroll': 'scroll',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'background-color': (
+    'class-namespace': 'bg',
+    'class-options': $colors,
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'background-position': (
+    'class-namespace': 'bg',
+    'class-options': (
+      'bottom': 'bottom',
+      'center': 'center',
+      'left': 'left',
+      'left-bottom': 'left bottom',
+      'left-top': 'left top',
+      'right': 'right',
+      'right-bottom': 'right bottom',
+      'right-top': 'right top',
+      'top': 'top',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'background-repeat': (
+    'class-namespace': 'bg',
+    'class-options': (
+      'repeat': 'repeat',
+      'no-repeat': 'no-repeat',
+      'repeat-x': 'repeat-x',
+      'repeat-y': 'repeat-y',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'background-size': (
+    'class-namespace': 'bg',
+    'class-options': (
+      'cover': 'cover',
+      'contain': 'contain',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'border-color': (
+    'class-namespace': 'border',
+    'class-options': map-merge(
+      $colors,
+      (
+        default: map-get($colors, 'grey-light')
+      )
+    ),
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'border-radius': (
+    'class-namespace': 'rounded',
+    'class-options': (
+      'none': '0',
+      'sm': '.125rem',
+      default: '.25rem',
+      'lg': '.5rem',
+      'full': '9999px',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+    'property-variants': (
+      corners: true,
+    ),
+  ),
+
+  'border-style': (
+    'class-namespace': 'border',
+    'class-options': (
+      default: 'solid',
+      'solid': 'solid',
+      'dashed': 'dashed',
+      'dotted': 'dotted',
+      'none': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'border-width': (
+    'class-namespace': 'border',
+    'class-options': (
+      default: '1px',
+      '0': '0',
+      '2': '2px',
+      '4': '4px',
+      '8': '8px',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+    'property-variants': (
+      sides: true,
+    ),
+  ),
+
+  'cursor': (
+    'class-namespace': 'cursor',
+    'class-options': (
+      'auto': 'auto',
+      'default': 'default',
+      'pointer': 'pointer',
+      'not-allowed': 'not-allowed',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'display': (
+    'class-namespace': '',
+    'class-options': (
+      'block': 'block',
+      'inline-block': 'inline-block',
+      'inline': 'inline',
+      'table': 'table',
+      'table-row': 'table-row',
+      'table-cell': 'table-cell',
+      'hidden': 'none',
+      'none': 'none',
+      'flex': 'flex',
+      'inline-flex': 'inline-flex',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'flex-direction': (
+    'class-namespace': 'flex',
+    'class-options': (
+      'row': 'row',
+      'row-reverse': 'row-reverse',
+      'col': 'column',
+      'col-reverse': 'column-reverse',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'flex-wrap': (
+    'class-namespace': 'flex',
+    'class-options': (
+      'no-wrap': 'nowrap',
+      'wrap': 'wrap',
+      'wrap-reverse': 'wrap-reverse',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'justify-content': (
+    'class-namespace': 'justify',
+    'class-options': (
+      'start': 'flex-start',
+      'center': 'center',
+      'end': 'flex-end',
+      'between': 'space-between',
+      'around': 'space-around',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'align-items': (
+    'class-namespace': 'items',
+    'class-options': (
+      'stretch': 'stretch',
+      'start': 'flex-start',
+      'center': 'center',
+      'end': 'flex-end',
+      'baseline': 'baseline',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'align-content': (
+    'class-namespace': 'content',
+    'class-options': (
+      'start': 'flex-start',
+      'center': 'center',
+      'end': 'flex-end',
+      'between': 'space-between',
+      'around': 'space-around',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'align-self': (
+    'class-namespace': 'self',
+    'class-options': (
+      'auto': 'auto',
+      'start': 'flex-start',
+      'center': 'center',
+      'end': 'flex-end',
+      'stretch': 'stretch',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'flex': (
+    'class-namespace': 'flex',
+    'class-options': (
+      'initial': 'initial',
+      '1': '1',
+      'auto': 'auto',
+      'none': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'flex-grow': (
+    'class-namespace': 'flex',
+    'class-options': (
+      'grow': '1',
+      'no-grow': '0',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'flex-shrink': (
+    'class-namespace': 'flex',
+    'class-options': (
+      'shrink': '1',
+      'no-shrink': '0',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'float': (
+    'class-namespace': 'float',
+    'class-options': (
+      'right': 'right',
+      'left': 'left',
+      'none': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'font-family': (
+    'class-namespace': 'font',
+    'class-options': (
+      'sans': (
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        'sans-serif',
+      ),
+      'serif': (
+        'Constantia',
+        'Lucida Bright',
+        'Lucidabright',
+        'Lucida Serif',
+        'Lucida',
+        'DejaVu Serif',
+        'Bitstream Vera Serif',
+        'Liberation Serif',
+        'Georgia',
+        'serif',
+      ),
+      'mono': (
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        'Liberation Mono',
+        'Courier New',
+        'monospace',
+      )
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'font-weight': (
+    'class-namespace': 'font',
+    'class-options': (
+      'hairline': 100,
+      'thin': 200,
+      'light': 300,
+      'normal': 400,
+      'medium': 500,
+      'semibold': 600,
+      'bold': 700,
+      'extrabold': 800,
+      'black': 900,
+    ),
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'height': (
+    'class-namespace': 'h',
+    'class-options': (
+      'auto': 'auto',
+      'px': '1px',
+      '1': '0.25rem',
+      '2': '0.5rem',
+      '3': '0.75rem',
+      '4': '1rem',
+      '6': '1.5rem',
+      '8': '2rem',
+      '10': '2.5rem',
+      '12': '3rem',
+      '16': '4rem',
+      '24': '6rem',
+      '32': '8rem',
+      '48': '12rem',
+      '64': '16rem',
+      'full': '100%',
+      'screen': '100vh'
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'line-height': (
+    'class-namespace': 'leading',
+    'class-options': (
+      'none': 1,
+      'tight': 1.25,
+      'normal': 1.5,
+      'loose': 2,
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'margin': (
+    'class-namespace': 'm',
+    'class-options': (
+      'auto': 'auto',
+      'px': '1px',
+      '0': '0',
+      '1': '0.25rem',
+      '2': '0.5rem',
+      '3': '0.75rem',
+      '4': '1rem',
+      '6': '1.5rem',
+      '8': '2rem',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+    'property-variants': (
+      sides: true,
+      negatives: true,
+    ),
+  ),
+
+  'max-height': (
+    'class-namespace': 'max-h',
+    'class-options': (
+      'full': '100%',
+      'screen': '100vh',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'max-width': (
+    'class-namespace': 'max-w',
+    'class-options': (
+      'xs': '20rem',
+      'sm': '30rem',
+      'md': '40rem',
+      'lg': '50rem',
+      'xl': '60rem',
+      '2xl': '70rem',
+      '3xl': '80rem',
+      '4xl': '90rem',
+      '5xl': '100rem',
+      'full': '100%',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'min-height': (
+    'class-namespace': 'min-h',
+    'class-options': (
+      '0': '0',
+      'full': '100%',
+      'screen': '100vh'
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'min-width': (
+    'class-namespace': 'min-w',
+    'class-options': (
+      '0': '0',
+      'full': '100%',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'opacity': (
+    'class-namespace': 'opacity',
+    'class-options': (
+      '0': '0',
+      '25': '.25',
+      '50': '.5',
+      '75': '.75',
+      '100': '1',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'overflow': (
+    'class-namespace': 'overflow',
+    'class-options': (
+      'auto': 'auto',
+      'hidden': 'hidden',
+      'visible': 'visible',
+      'scroll': 'scroll',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'padding': (
+    'class-namespace': 'p',
+    'class-options': (
+      'px': '1px',
+      '0': '0',
+      '1': '0.25rem',
+      '2': '0.5rem',
+      '3': '0.75rem',
+      '4': '1rem',
+      '6': '1.5rem',
+      '8': '2rem',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+    'property-variants': (
+      sides: true,
+    ),
+  ),
+
+  'pointer-events': (
+    'class-namespace': 'pointer-events',
+    'class-options': (
+      'none': 'none',
+      'auto': 'auto',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'position': (
+    'class-namespace': '',
+    'class-options': (
+      'static': 'static',
+      'fixed': 'fixed',
+      'absolute': 'absolute',
+      'relative': 'relative',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'resize': (
+    'class-namespace': 'resize',
+    'class-options': (
+      default: 'both',
+      'none': 'none',
+      'y': 'vertical',
+      'x': 'horizontal',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'box-shadow': (
+    'class-namespace': 'shadow',
+    'class-options': (
+      default: '0 2px 4px 0 rgba(0,0,0,0.10)',
+      'md': '0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)',
+      'lg': '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
+      'inner': 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
+      'none': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'fill': (
+    'class-namespace': 'fill',
+    'class-options': (
+      'current': 'currentColor',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'stroke': (
+    'class-namespace': 'stroke',
+    'class-options': (
+      'current': 'currentColor',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'text-align': (
+    'class-namespace': 'text',
+    'class-options': (
+      'left': 'left',
+      'center': 'center',
+      'right': 'right',
+      'justify': 'justify',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'color': (
+    'class-namespace': 'text',
+    'class-options': $colors,
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'font-size': (
+    'class-namespace': 'text',
+    'class-options': (
+      'xs': '.75rem',     // 12px
+      'sm': '.875rem',    // 14px
+      'base': '1rem',     // 16px
+      'lg': '1.125rem',   // 18px
+      'xl': '1.25rem',    // 20px
+      '2xl': '1.5rem',    // 24px
+      '3xl': '1.875rem',  // 30px
+      '4xl': '2.25rem',   // 36px
+      '5xl': '3rem',      // 48px
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'font-style': (
+    'class-namespace': '',
+    'class-options': (
+      'italic': 'italic',
+      'roman': 'normal',
+    ),
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'text-transform': (
+    'class-namespace': '',
+    'class-options': (
+      'uppercase': 'uppercase',
+      'lowercase': 'lowercase',
+      'capitalize': 'capitalize',
+      'normal-case': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'text-decoration': (
+    'class-namespace': '',
+    'class-options': (
+      'underline': 'underline',
+      'line-through': 'line-through',
+      'no-underline': 'none',
+    ),
+    'state-variants': (
+      responsive: true,
+      hover: true,
+    ),
+  ),
+
+  'letter-spacing': (
+    'class-namespace': 'tracking',
+    'class-options': (
+      'tight': '-0.05em',
+      'normal': '0',
+      'wide': '0.05em',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'user-select': (
+    'class-namespace': 'select',
+    'class-options': (
+      'none': 'none',
+      'text': 'text',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'vertical-align': (
+    'class-namespace': 'align',
+    'class-options': (
+      'baseline': 'baseline',
+      'top': 'top',
+      'middle': 'middle',
+      'bottom': 'bottom',
+      'text-top': 'text-top',
+      'text-bottom': 'text-bottom',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'visibility': (
+    'class-namespace': '',
+    'class-options': (
+      'visible': 'visible',
+      'invisible': 'hidden',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'white-space': (
+    'class-namespace': 'whitespace',
+    'class-options': (
+      'normal': 'normal',
+      'no-wrap': 'nowrap',
+      'pre': 'pre',
+      'pre-line': 'pre-line',
+      'pre-wrap': 'pre-wrap',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'word-wrap': (
+    'class-namespace': 'break',
+    'class-options': (
+      'words': 'break-word',
+      'normal': 'normal',
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'width': (
+    'class-namespace': 'w',
+    'class-options': (
+      'auto': 'auto',
+      'px': '1px',
+      '1': '0.25rem',
+      '2': '0.5rem',
+      '3': '0.75rem',
+      '4': '1rem',
+      '6': '1.5rem',
+      '8': '2rem',
+      '10': '2.5rem',
+      '12': '3rem',
+      '16': '4rem',
+      '24': '6rem',
+      '32': '8rem',
+      '48': '12rem',
+      '64': '16rem',
+      '1/2': '50%',
+      '1/3': '33.33333%',
+      '2/3': '66.66667%',
+      '1/4': '25%',
+      '3/4': '75%',
+      '1/5': '20%',
+      '2/5': '40%',
+      '3/5': '60%',
+      '4/5': '80%',
+      '1/6': '16.66667%',
+      '5/6': '83.33333%',
+      'full': '100%',
+      'screen': '100vw'
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+
+  'z-index': (
+    'class-namespace': 'z',
+    'class-options': (
+      'auto': 'auto',
+      '0': 0,
+      '10': 10,
+      '20': 20,
+      '30': 30,
+      '40': 40,
+      '50': 50,
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+  ),
+);

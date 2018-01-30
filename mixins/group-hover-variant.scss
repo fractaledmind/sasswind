@@ -1,0 +1,24 @@
+@import '../functions/generate-classname';
+@import '../utilities/escape-css';
+@import './responsive-variant';
+
+@mixin group-hover-variant($rule-map, $is-responsive: true) {
+  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
+  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
+  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
+  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+
+  $class-name: generate-classname($alias, $namespace);
+  $context: 'group:hover';
+  $selector: escape-css('group-hover:#{$class-name}');
+
+  .#{$context} .#{$selector} {
+    #{$property}: #{$value}
+  }
+
+  @if $is-responsive {
+    @include responsive-variant($selector, $context) {
+      #{$property}: #{$value}
+    }
+  }
+}

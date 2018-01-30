@@ -1,0 +1,45 @@
+// a partial port of https://github.com/mathiasbynens/mothereff.in/blob/master/css-escapes/eff.js#L69
+
+@function escape-css($string) {
+  $output: '';
+  $charsToEscape: (
+    '!'
+    '"'
+    '#'
+    '$'
+    '%'
+    '&'
+    "'"
+    '('
+    ')'
+    '*'
+    '+'
+    ','
+    '.'
+    '/'
+    ';'
+    '<'
+    '='
+    '>'
+    '?'
+    '@'
+    '['
+    '\\'
+    ']'
+    '^'
+    '`'
+    '{'
+    '|'
+    '}'
+    '~'
+    ':'
+  );
+  @for $i from 0 through str-length($string) {
+    $char: str-slice($string, $i, $i);
+    @if (index($charsToEscape, $char)) {
+      $char: '\\' + $char;
+    }
+    $output: $output + $char;
+  }
+  @return $output;
+}

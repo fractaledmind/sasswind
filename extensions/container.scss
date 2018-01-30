@@ -1,0 +1,14 @@
+@import '../config';
+
+@mixin container() {
+  .container {
+    width: 100%
+  }
+  @each $alias, $value in map-get($config, '_screens') {
+    @media (min-width: #{$value}) {
+      .container {
+        max-width: #{$value}
+      }
+    }
+  }
+}

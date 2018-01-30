@@ -1,0 +1,6 @@
+@function has-variant($config, $variant-kind, $variant) {
+  @if not map-has-key($config, $variant-kind) { @return false; }
+  @if not map-has-key(map-get($config, $variant-kind), $variant) { @return false; }
+
+  @return map-get(map-get($config, $variant-kind), $variant);
+}

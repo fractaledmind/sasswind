@@ -1,0 +1,16 @@
+@import './escape-or-null-classname-alias';
+@import './escape-or-null-classname-namespace';
+@import './escape-or-null-classname-namespace';
+@import '../utilities/remove';
+@import '../utilities/to-string';
+
+@function generate-classname($alias, $namespace, $variant: null) {
+  $alias: escape-or-null-classname-alias($alias);
+  $namespace: escape-or-null-classname-namespace($namespace);
+  $variant: escape-or-null-classname-namespace($variant);
+
+  $sections: ($namespace, $variant, $alias);
+  $sections: remove($sections, null);
+
+  @return to-string($sections, '-');
+}
