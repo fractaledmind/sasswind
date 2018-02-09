@@ -1,0 +1,15 @@
+@import './split-property';
+@import '../utilities/join';
+
+@function base-declaration-property($utility-obj, $selector-variant: null) {
+  $property : map-get($utility-obj, 'declaration-property');
+
+  @if not $selector-variant { @return $property; }
+
+  $property-sections : split-property($property);
+  $property-pre      : nth($property-sections, 1);
+  $property-post     : nth($property-sections, 2);
+  $sections          : remove(($property-pre, $selector-variant, $property-post), null);
+
+  @return join($sections, '-');
+}

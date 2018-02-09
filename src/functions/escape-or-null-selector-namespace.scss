@@ -1,0 +1,8 @@
+@import '../utilities/escape-css';
+
+@function escape-or-null-selector-namespace($namespace) {
+  @if $namespace == null  { @return null; }
+  @if $namespace == ''    { @return null; }
+
+  @return escape-css($namespace);
+}

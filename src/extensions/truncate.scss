@@ -1,4 +1,4 @@
-@mixin truncate() {
+@mixin truncate($config) {
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;

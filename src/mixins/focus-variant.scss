@@ -1,24 +1,21 @@
-@import '../functions/generate-classname';
-@import '../utilities/to-string';
+@import '../functions/base-declaration-property';
+@import '../functions/base-declaration-selector';
+@import '../utilities/join';
 @import '../utilities/escape-css';
-@import './responsive-variant';
 
-@mixin focus-variant($rule-map, $is-responsive: true) {
-  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
-  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
-  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
-  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+@mixin focus-variant($utility-obj, $responsive-screen-alias: null) {
+  $property  : base-declaration-property($utility-obj);
+  $selector  : base-declaration-selector($utility-obj);
+  $value     : map-get($utility-obj, 'declaration-value');
 
-  $class-name: generate-classname($alias, $namespace);
-  $selector: to-string((escape-css('focus:#{$class-name}'), ':focus'));
+  $selector  : join((escape-css('focus:#{$selector}'), ':focus'));
+
+  @if $responsive-screen-alias {
+    $screen-namespace : escape-css('#{$responsive-screen-alias}:');
+    $selector         : join(($screen-namespace, $selector));
+  }
 
   .#{$selector} {
     #{$property}: #{$value}
-  }
-
-  @if $is-responsive {
-    @include responsive-variant($selector) {
-      #{$property}: #{$value}
-    }
   }
 }

@@ -1,6 +1,4 @@
-@import '../config';
-
-@mixin container() {
+@mixin container($config) {
   .container {
     width: 100%
   }

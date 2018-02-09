@@ -1,4 +1,4 @@
-@mixin scrolling() {
+@mixin scrolling($config) {
   .overflow-x-scroll {
     overflow-x: 'auto';
     -ms-overflow-style: '-ms-autohiding-scrollbar'

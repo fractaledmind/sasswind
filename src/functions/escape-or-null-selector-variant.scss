@@ -1,0 +1,8 @@
+@import '../utilities/escape-css';
+
+@function escape-or-null-selector-variant($variant) {
+  @if $variant == null  { @return null; }
+  @if $variant == ''    { @return null; }
+
+  @return escape-css($variant);
+}

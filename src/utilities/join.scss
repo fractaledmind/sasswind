@@ -1,11 +1,11 @@
-@function to-string($list, $glue: '', $is-nested: false) {
+@function join($list, $glue: '', $is-nested: false) {
   $result: null;
 
   @for $i from 1 through length($list) {
     $e: nth($list, $i);
 
     @if type-of($e) == list {
-      $result: unquote("#{$result}#{to-string($e, $glue, true)}");
+      $result: unquote("#{$result}#{join($e, $glue, true)}");
     }
 
     @else {

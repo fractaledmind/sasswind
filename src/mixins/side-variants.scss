@@ -1,31 +1,24 @@
-@import '../functions/generate-classname';
-@import '../functions/generate-property';
-@import './responsive-variant';
+@import '../functions/base-declaration-property';
+@import '../functions/base-declaration-selector';
+@import '../utilities/join';
+@import '../utilities/escape-css';
 
-@mixin side-variants($rule-map, $is-responsive: true) {
-  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
-  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
-  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
-  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+@mixin side-variants($utility-obj, $sides, $responsive-screen-alias: null) {
+  $value : map-get($utility-obj, 'declaration-value');
 
-  @each $sideAlias, $sideValues in $sides {
-    $class-name: generate-classname($alias, $namespace, $sideAlias);
+  @each $side-alias, $side-values in $sides {
+    $selector : base-declaration-selector($utility-obj, $side-alias);
 
-    .#{$class-name} {
-      @each $sideValue in $sideValues {
-        $property-name: generate-property($property, $sideValue);
-
-        #{$property-name}: #{$value}
-      }
+    @if $responsive-screen-alias {
+      $screen-namespace : escape-css('#{$responsive-screen-alias}:');
+      $selector         : join(($screen-namespace, $selector));
     }
 
-    @if $is-responsive {
-      @include responsive-variant($class-name) {
-        @each $sideValue in $sideValues {
-          $property-name: generate-property($property, $sideValue);
+    .#{$selector} {
+      @each $side-value in $side-values {
+        $property : base-declaration-property($utility-obj, $side-value);
 
-          #{$property-name}: #{$value}
-        }
+        #{$property}: #{$value}
       }
     }
   }

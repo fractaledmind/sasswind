@@ -1,6 +1,4 @@
-@import '../config';
-
-@mixin pin() {
+@mixin pin($config) {
   .pin {
     top: 0;
     right: 0;

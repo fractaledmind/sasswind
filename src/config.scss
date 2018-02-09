@@ -1,13 +1,13 @@
 @import './variables';
 
-$config: (
+$sasswind-config: (
   _screens: $screens,
 
   _sides: $sides,
 
   _corners: $corners,
 
-  _mixins: (
+  _extensions: (
     'container',
     'pin',
     'scrolling',
@@ -809,4 +809,4 @@ $config: (
       responsive: true,
     ),
   ),
-);
+) !default;

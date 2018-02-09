@@ -1,0 +1,18 @@
+@import './escape-or-null-selector-alias';
+@import './escape-or-null-selector-namespace';
+@import './escape-or-null-selector-variant';
+@import '../utilities/remove';
+@import '../utilities/join';
+
+@function base-declaration-selector($utility-obj, $selector-variant: null) {
+  $namespace : escape-or-null-selector-namespace(
+    map-get($utility-obj, 'selector-namespace')
+  );
+  $alias     : escape-or-null-selector-alias(
+    map-get($utility-obj, 'selector-alias')
+  );
+  $variant   : escape-or-null-selector-variant($selector-variant);
+  $sections  : remove(($namespace, $variant, $alias), null);
+
+  @return join($sections, '-');
+}

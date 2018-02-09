@@ -1,10 +1,10 @@
-@import '../utilities/to-string';
+@import '../utilities/join';
 @import '../utilities/escape-css';
 
 @mixin responsive-variant($class, $context: null) {
   @each $screenAlias, $screenValue in $screens {
     @media (min-value: #{$screenValue}) {
-      $selector: to-string((escape-css('#{$screenAlias}:'), $class));
+      $selector: join((escape-css('#{$screenAlias}:'), $class));
 
       @if $context {
         .#{$context} .#{$selector} {

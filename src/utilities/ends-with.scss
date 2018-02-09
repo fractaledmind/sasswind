@@ -1,0 +1,7 @@
+@function ends-with($string, $find) {
+  @if (str-slice($string, (str-length($string) - str-length($find) + 1)) == $find) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}

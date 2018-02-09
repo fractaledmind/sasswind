@@ -1,4 +1,4 @@
-@mixin lists() {
+@mixin lists($config) {
   .list-reset {
     list-style: none;
     padding: 0

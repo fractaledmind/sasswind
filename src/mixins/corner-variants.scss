@@ -1,31 +1,24 @@
-@import '../functions/generate-classname';
-@import '../functions/generate-property';
-@import './responsive-variant';
+@import '../functions/base-declaration-property';
+@import '../functions/base-declaration-selector';
+@import '../utilities/join';
+@import '../utilities/escape-css';
 
-@mixin corner-variants($rule-map, $is-responsive: true) {
-  $property  : map-get(map-get($rule-map, 'declaration'), 'property');
-  $value     : map-get(map-get($rule-map, 'declaration'), 'value');
-  $namespace : map-get(map-get($rule-map, 'class'),       'namespace');
-  $alias     : map-get(map-get($rule-map, 'class'),       'alias');
+@mixin corner-variants($utility-obj, $corners, $responsive-screen-alias: null) {
+  $value : map-get($utility-obj, 'declaration-value');
 
-  @each $cornerAlias, $cornerValues in $corners {
-    $class-name: generate-classname($alias, $namespace, $cornerAlias);
+  @each $corner-alias, $corner-values in $corners {
+    $selector : base-declaration-selector($utility-obj, $corner-alias);
 
-    .#{$class-name} {
-      @each $cornerValue in $cornerValues {
-        $property-name: generate-property($property, $cornerValue);
-
-        #{$property-name}: #{$value}
-      }
+    @if $responsive-screen-alias {
+      $screen-namespace : escape-css('#{$responsive-screen-alias}:');
+      $selector         : join(($screen-namespace, $selector));
     }
 
-    @if $is-responsive {
-      @include responsive-variant($class-name) {
-        @each $cornerValue in $cornerValues {
-          $property-name: generate-property($property, $cornerValue);
+    .#{$selector} {
+      @each $corner-value in $corner-values {
+        $property : base-declaration-property($utility-obj, $corner-value);
 
-          #{$property-name}: #{$value}
-        }
+        #{$property}: #{$value}
       }
     }
   }
