@@ -89,14 +89,22 @@ $sasswind-config: (
     ),
   ),
 
+  'border': (
+    'class-namespace': 'border',
+    'class-options': (
+      default: "1px solid #{map-get($colors, 'grey-light')}",
+    ),
+    'state-variants': (
+      responsive: true,
+    ),
+    'property-variants': (
+      sides: true,
+    ),
+  ),
+
   'border-color': (
     'class-namespace': 'border',
-    'class-options': map-merge(
-      $colors,
-      (
-        default: map-get($colors, 'grey-light')
-      )
-    ),
+    'class-options': $colors,
     'state-variants': (
       responsive: true,
       hover: true,
@@ -123,7 +131,6 @@ $sasswind-config: (
   'border-style': (
     'class-namespace': 'border',
     'class-options': (
-      default: 'solid',
       'solid': 'solid',
       'dashed': 'dashed',
       'dotted': 'dotted',
@@ -137,7 +144,6 @@ $sasswind-config: (
   'border-width': (
     'class-namespace': 'border',
     'class-options': (
-      default: '1px',
       '0': '0',
       '2': '2px',
       '4': '4px',
